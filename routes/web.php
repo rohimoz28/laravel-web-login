@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 
 Route::resource('user', UserController::class)->except('destroy', 'create', 'store');
+
+Route::controller(AuthController::class)->group(function () {
+  Route::get('/auth/index', 'index');
+  Route::post('/auth/index', 'doLogin');
+});
