@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-  return view('welcome');
+  return view('auth/index');
 });
 
 Route::resource('user', UserController::class)->except('destroy', 'create', 'store');
@@ -24,4 +24,5 @@ Route::resource('user', UserController::class)->except('destroy', 'create', 'sto
 Route::controller(AuthController::class)->group(function () {
   Route::get('/auth/index', 'index');
   Route::post('/auth/index', 'doLogin');
+  Route::get('/auth/logout', 'logout');
 });
