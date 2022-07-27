@@ -24,5 +24,6 @@ Route::resource('user', UserController::class)->except('destroy', 'create', 'sto
 Route::controller(AuthController::class)->group(function () {
   Route::get('/auth/index', 'index');
   Route::post('/auth/index', 'doLogin');
+  Route::get('/auth/register', 'register');
   Route::get('/auth/logout', 'logout');
 });

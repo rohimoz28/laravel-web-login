@@ -16,7 +16,15 @@ class AuthController extends Controller
 
   public function register()
   {
+    return view('auth.register',[
+      'title' => 'Registration'
+    ]);
   }
+
+  public function doRegister()
+  {
+
+  } 
 
   public function doLogin(Request $request)
   {
