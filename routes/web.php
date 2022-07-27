@@ -19,7 +19,7 @@ Route::get('/', function () {
   return view('auth/index');
 });
 
-Route::resource('user', UserController::class)->except('destroy', 'create', 'store');
+Route::resource('user', UserController::class)->except('destroy', 'create', 'store', 'show');
 
 Route::controller(AuthController::class)->group(function () {
   Route::get('/auth/index', 'index');
@@ -27,4 +27,9 @@ Route::controller(AuthController::class)->group(function () {
   Route::get('/auth/register', 'register');
   Route::post('/auth/register', 'doRegister');
   Route::get('/auth/logout', 'logout');
+});
+
+Route::controller(UserController::class)->group(function(){
+  Route::get('/user/profile/{id}','editProfile');
+  Route::put('/user/profile/{id}','updateProfile');
 });

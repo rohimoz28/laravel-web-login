@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -15,7 +16,8 @@ class UserController extends Controller
   public function index()
   {
     return view('user.index', [
-      'title' => 'User Page'
+      'title' => 'User Page',
+      'user' => User::find(auth()->user()->id),
     ]);
   }
 
@@ -48,7 +50,7 @@ class UserController extends Controller
    */
   public function show(User $user)
   {
-    return view('user.show');
+    //
   }
 
   /**
@@ -71,7 +73,6 @@ class UserController extends Controller
    */
   public function update(Request $request, User $user)
   {
-    //
   }
 
   /**
@@ -83,5 +84,39 @@ class UserController extends Controller
   public function destroy(User $user)
   {
     //
+  }
+
+  public function editProfile($id)
+  {
+    return view('user.profile', [
+      'title' => 'Update Profile',
+      'user' => User::find($id),
+    ]);
+  }
+
+  public function updateProfile(Request $request, $id)
+  {
+    $rules = [
+      'name' => 'required',
+    ];
+    $currentEmail = DB::table('users')->where('id', $id)->value('email');
+
+    if ($currentEmail != $request->email) {
+      $rules['email'] = 'required|unique:users';
+    };
+
+    $validated = $request->validate($rules);
+
+    User::where('id', $id)->update($validated);
+
+    return redirect('/user')->with('success', 'Profile has been updated!');
+  }
+
+  public function editPassword()
+  {
+  }
+
+  public function updatePassword()
+  {
   }
 }
