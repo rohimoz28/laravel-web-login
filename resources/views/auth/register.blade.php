@@ -10,7 +10,7 @@
         {{ session('failed') }}
       </div>
       @endif
-      <form class="mb-1" method="POST" action="/auth/doRegister">
+      <form class="mb-1" method="POST" action="/auth/register">
         @csrf
         <div class="form-floating">
           <input type="text" class="form-control mb-2 @error('name') is-invalid @enderror" name="name" id="floatingInput" placeholder="name@example.com" value="{{ old('name') }}">
@@ -40,7 +40,7 @@
           @enderror
         </div>
         <div class="form-floating">
-          <input type="password" class="form-control mb-2 @error('retypePassword') is-invalid @enderror" id="retypePassword" placeholder="Retype Password" name="retypePassword">
+          <input type="password" class="form-control mb-2 @error('retypePassword') is-invalid @enderror" id="password_confirmation" placeholder="Retype Password" name="password_confirmation">
           <label for="retypePassword">Retype Password</label>
           @error('password')
           <div class="invalid-feedback text-start">
@@ -48,7 +48,7 @@
           </div>
           @enderror
         </div>
-
+        <!-- imagePreview -->
         <!-- <div class="mb-3"> -->
         <!--   <label for="image" class="form-label">Post Image</label> -->
         <!--   <input class="form-control  @error('image') is-invalid @enderror" type="file" id="image" name="image" onchange="previewImage()"> -->
@@ -60,19 +60,19 @@
         <!--   @enderror -->
         <!-- </div> -->
 
-        <div class="mb-3 d-flex">
-          <div class="col-md-3 justify-content-start">
-            <label for="formFile" class="form-label">Profile Picture</label>
-          </div>
-          <div>
-            <input class="form-control" type="file" id="image" name="image">
-          </div>
-          @error('image')
-          <div class="invalid-feedback">
-            {{ $message }}
-          </div>
-          @enderror
-        </div>
+        <!-- <div class="mb-3 d-flex"> -->
+        <!--   <div class="col-md-3 justify-content-start"> -->
+        <!--     <label for="formFile" class="form-label">Profile Picture</label> -->
+        <!--   </div> -->
+        <!--   <div> -->
+        <!--     <input class="form-control" type="file" id="image" name="image"> -->
+        <!--   </div> -->
+        <!--   @error('image') -->
+        <!--   <div class="invalid-feedback"> -->
+        <!--     {{ $message }} -->
+        <!--   </div> -->
+        <!--   @enderror -->
+        <!-- </div> -->
         <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
       </form>
       <a href="/auth/index" class="w-100 btn btn-lg btn-primary">Back to login</a>
@@ -80,17 +80,17 @@
   </div>
 </div>
 
-<script>
-  //image
-  function previewImage() {
-    const image = document.querySelector('#image');
-    const imgPreview = document.querySelector('.img-preview');
-    imgPreview.style.display = 'block';
-    const oFReader = new FileReader();
-    oFReader.readAsDataURL(image.files[0]);
-    oFReader.onload = function(oFREvent) {
-      imgPreview.src = oFREvent.target.result;
-    }
-  }
-</script>
+<!-- <script> -->
+<!--   //image -->
+<!--   function previewImage() { -->
+<!--     const image = document.querySelector('#image'); -->
+<!--     const imgPreview = document.querySelector('.img-preview'); -->
+<!--     imgPreview.style.display = 'block'; -->
+<!--     const oFReader = new FileReader(); -->
+<!--     oFReader.readAsDataURL(image.files[0]); -->
+<!--     oFReader.onload = function(oFREvent) { -->
+<!--       imgPreview.src = oFREvent.target.result; -->
+<!--     } -->
+<!--   } -->
+<!-- </script> -->
 @endsection

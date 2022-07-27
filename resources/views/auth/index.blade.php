@@ -5,9 +5,15 @@
   <div class="col-md-5">
     <main class="form-signin m-auto">
       <h1 class="h3 mb-3 fw-normal text-center">Please Sign In</h1>
-      @if(session('loginFailed'))
+      @if(session('failed'))
       <div class="alert alert-danger">
-        {{ session('loginFailed') }}
+        {{ session('failed') }}
+      </div>
+      @endif
+
+      @if(session('success'))
+      <div class="alert alert-success">
+        {{ session('success') }}
       </div>
       @endif
       <form class="mb-1" method="POST" action="/auth/index">

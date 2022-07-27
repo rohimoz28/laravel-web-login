@@ -25,5 +25,6 @@ Route::controller(AuthController::class)->group(function () {
   Route::get('/auth/index', 'index');
   Route::post('/auth/index', 'doLogin');
   Route::get('/auth/register', 'register');
+  Route::post('/auth/register', 'doRegister');
   Route::get('/auth/logout', 'logout');
 });
