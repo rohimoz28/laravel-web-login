@@ -56,6 +56,13 @@ class AuthController extends Controller
     return back()->with('failed', 'Username or password wrong!');
   }
 
+  public function forgotPassword()
+  {
+    return view('auth.forgot-password', [
+      'title' => 'Forgot Password'
+    ]);
+  }
+
   public function logout(Request $request)
   {
     Auth::logout();

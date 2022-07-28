@@ -27,6 +27,8 @@ Route::controller(AuthController::class)->group(function () {
   Route::get('/auth/register', 'register');
   Route::post('/auth/register', 'doRegister');
   Route::get('/auth/logout', 'logout');
+  Route::get('/auth/forgot', 'forgotPassword');
+  Route::post('/auth/forgot', 'forgotPassword');
 });
 
 Route::controller(UserController::class)->group(function(){
