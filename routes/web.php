@@ -30,6 +30,8 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::controller(UserController::class)->group(function(){
-  Route::get('/user/profile/{id}','editProfile');
-  Route::put('/user/profile/{id}','updateProfile');
+  route::get('/user/profile/{id}','editProfile');
+  route::put('/user/profile/{id}','updateProfile');
+  route::get('/user/password/{id}','editPassword');
+  route::put('/user/password/{id}','updatePassword');
 });

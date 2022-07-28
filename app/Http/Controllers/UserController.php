@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -99,6 +100,7 @@ class UserController extends Controller
     $rules = [
       'name' => 'required',
     ];
+
     $currentEmail = DB::table('users')->where('id', $id)->value('email');
 
     if ($currentEmail != $request->email) {
@@ -112,11 +114,34 @@ class UserController extends Controller
     return redirect('/user')->with('success', 'Profile has been updated!');
   }
 
-  public function editPassword()
+  public function editPassword($id)
   {
+    return view('user.password', [
+      'title' => 'Change Password',
+      'user' => User::find($id),
+    ]);
   }
 
-  public function updatePassword()
+  public function updatePassword(Request $request, $id)
   {
+    $rules = $request->validate([
+      'currentPassword' => 'required',
+      'password' => 'required|confirmed',
+      'password_confirmation' => 'required'
+    ], [
+      'password.confirmed' => 'Please make sure both passwords match!'
+    ]);
+
+    $currentPassword = DB::table('users')->where('id', $id)->value('password');
+
+    // check old password and hashing it
+    if (Hash::check($request->currentPassword, $currentPassword)) {
+      $rules['password'] =  Hash::make($rules['password']);
+      $data = ['password' => $rules['password']];
+    }
+
+    User::where('id', $id)->update($data);
+
+    return redirect('/user')->with('success', 'Password has been updated!');
   }
 }
