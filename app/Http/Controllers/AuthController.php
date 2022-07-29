@@ -63,6 +63,32 @@ class AuthController extends Controller
     ]);
   }
 
+  public function updatePassword(Request $request)
+  {
+    //validasi
+    $validated = $request->validate([
+      'email' => 'required',
+      'password' => 'required|confirmed'
+    ]);
+
+    //cek email
+    $email = User::where('email', $validated['email'])->first();
+
+    if ($email == null) {
+      return back()->with('failed', 'Wrong Email!');
+    }
+    //hash
+    $validated['password'] =  Hash::make($validated['password']);
+    $data = [
+      'password' => $validated['password'],
+    ];
+    //update password
+    User::where('id', $email->id)
+      ->update($data);
+    //redirect
+    return redirect('/')->with('success', 'Password has been changed!');
+  }
+
   public function logout(Request $request)
   {
     Auth::logout();

@@ -10,7 +10,8 @@
         {{ session('failed') }}
       </div>
       @endif
-      <form class="mb-1" method="POST" action="/auth/forgotPassword">
+      <form class="mb-1" method="POST" action="/auth/forgot">
+        @method('put')
         @csrf
         <div class="form-floating">
           <input type="email" class="form-control mb-2 @error('email') is-invalid @enderror" name="email" id="email" placeholder="email.gmail.com" value="{{ old('email') }}">
