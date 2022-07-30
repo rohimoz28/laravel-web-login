@@ -25,7 +25,11 @@
     <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
-        <a class="nav-link px-3" href="/auth/logout">Logout</a>
+        <form action="/auth/logout" method="POST">
+          @csrf
+          <!-- <a class="nav-link px-3" href="/auth/logout">Logout</a> -->
+          <button type="submit" class="nav-link px-3 bg-dark border-0">Logout</button>
+        </form>
       </div>
     </div>
   </header>
@@ -34,7 +38,7 @@
     <div class="row">
       @include('templates.app.sidebar')
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-          @yield('content')
+        @yield('content')
       </main>
     </div>
   </div>
@@ -47,4 +51,3 @@
 </body>
 
 </html>
-
