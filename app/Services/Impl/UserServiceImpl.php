@@ -4,7 +4,6 @@ namespace App\Services\Impl;
 
 use App\Models\User;
 use App\Services\UserService;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -45,8 +44,8 @@ class UserServiceImpl implements UserService
       'password' => 'required|confirmed',
       'password_confirmation' => 'required'
     ], [
-        'password.confirmed' => 'Password not match!',
-        'password.current_password' => 'Wrong Current Password'
+      'password.confirmed' => 'Password not match!',
+      'password.current_password' => 'Wrong Current Password'
     ]);
 
     //hash new password
