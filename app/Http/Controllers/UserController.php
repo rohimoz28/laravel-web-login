@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdatePasswordUserRequest;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -119,7 +116,7 @@ class UserController extends Controller
     ]);
   }
 
-  public function updatePassword(UpdatePasswordUserRequest $request, $id)
+  public function updatePassword(Request $request, $id)
   {
     $this->userService->updatePassword($request->all(), $id);
 

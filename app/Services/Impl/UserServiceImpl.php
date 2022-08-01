@@ -4,6 +4,7 @@ namespace App\Services\Impl;
 
 use App\Models\User;
 use App\Services\UserService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -39,14 +40,20 @@ class UserServiceImpl implements UserService
 
   public function updatePassword($data, $id): void
   {
-    $oldPassword = DB::table('users')->where('id', $id)->value('password');
+    $validated = $this->request->validate([
+      'currentPassword' => 'required|current_password:web',
+      'password' => 'required|confirmed',
+      'password_confirmation' => 'required'
+    ], [
+        'password.confirmed' => 'Password not match!',
+        'password.current_password' => 'Wrong Current Password'
+    ]);
 
-    // check old password and hashing it
-    if (Hash::check($data['currentPassword'], $oldPassword)) {
-      $data['password'] =  Hash::make($data['password']);
-      $data = ['password' => $data['password']];
-    }
+    //hash new password
+    $newPassword = Hash::make($validated['password']);
 
-    User::where('id', $id)->update($data);
+    $user = User::find($id);
+    $user->password = $newPassword;
+    $user->save();
   }
 }

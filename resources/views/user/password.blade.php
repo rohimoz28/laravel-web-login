@@ -5,6 +5,12 @@
   <h1 class="h2">Edit Profile</h1>
 </div>
 
+@if(session('failed'))
+<div class="alert alert-danger col-lg-5">
+  {{ session('failed') }}
+</div>
+@endif
+
 <form action="/user/password/{{ $user->id }}" method="POST" class="col-lg-5">
   @method('put')
   @csrf
