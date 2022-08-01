@@ -10,7 +10,7 @@
         {{ session('failed') }}
       </div>
       @endif
-      <form class="mb-1" method="POST" action="/auth/register">
+      <form class="mb-1" method="POST" action="/auth/register" enctype="multipart/form-data">
         @csrf
         <div class="form-floating">
           <input type="text" class="form-control mb-2 @error('name') is-invalid @enderror" name="name" id="floatingInput" placeholder="name@example.com" value="{{ old('name') }}">
@@ -59,20 +59,16 @@
         <!--   </div> -->
         <!--   @enderror -->
         <!-- </div> -->
+        <div class="mb-3">
+          <!-- <label for="formFile" class="form-label">Default file input example</label> -->
+          <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image">
+          @error('image')
+          <div class="invalid-feedback text-start">
+            {{ $message }}
+          </div>
+          @enderror
+        </div>
 
-        <!-- <div class="mb-3 d-flex"> -->
-        <!--   <div class="col-md-3 justify-content-start"> -->
-        <!--     <label for="formFile" class="form-label">Profile Picture</label> -->
-        <!--   </div> -->
-        <!--   <div> -->
-        <!--     <input class="form-control" type="file" id="image" name="image"> -->
-        <!--   </div> -->
-        <!--   @error('image') -->
-        <!--   <div class="invalid-feedback"> -->
-        <!--     {{ $message }} -->
-        <!--   </div> -->
-        <!--   @enderror -->
-        <!-- </div> -->
         <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
       </form>
       <a href="/auth/index" class="w-100 btn btn-lg btn-primary">Back to login</a>

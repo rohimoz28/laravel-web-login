@@ -32,15 +32,6 @@ class AuthController extends Controller
 
   public function doRegister(Request $request)
   {
-    //validation
-    // $validated = $request->validate([
-    //   'name' => 'required',
-    //   'email' => 'required|email|unique:users',
-    //   'password' => 'required|confirmed',
-    // ]);
-    // $validated['password'] =  Hash::make($validated['password']);
-    //input
-    // User::create($validated);
     $this->authService->register($request->all());
     //redirect
     return redirect('/')->with('success', 'Registration success, Please Login.');

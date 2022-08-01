@@ -13,7 +13,11 @@
 @endif
 
 <div class="card" style="width: 18rem;">
-  <img src="img/default.jpeg" class="card-img-top" alt="...">
+  @if($user->image == 'default.jpeg')
+  <img src="profile-pictures/default.jpeg" class="card-img-top" alt="...">
+  @else
+  <img src="{{ asset('storage/' . $user->image) }}" class="card-img-top" alt="...">
+  @endif
   <div class="card-body">
     <h5 class="card-title">My Profile</h5>
     <p class="card-text">{{ $user->name }} <br>{{ $user->email }}</p>

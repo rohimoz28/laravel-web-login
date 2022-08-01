@@ -7,6 +7,7 @@ use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Validator;
 
 class AuthServiceImpl implements AuthService
 {
@@ -40,10 +41,24 @@ class AuthServiceImpl implements AuthService
       'name' => 'required',
       'email' => 'required|email|unique:users',
       'password' => 'required|confirmed',
+      'image' => 'image|file|max:2048',
     ]);
 
+    if ($this->request->file('image')) {
+      $validated['image'] = $this->request->file('image')->store('profile-pictures');
+    } else {
+      $validated['image'] = 'default.jpeg';
+    }
+
+
+    if ($this->request->file('image')) {
+      $validated['image'] = $this->request->file('image')->store('profile-pictures');
+    } else {
+      $validated['image'] = 'default.jpeg';
+    }
+
     $validated['password'] =  Hash::make($validated['password']);
-    
+
     //input
     User::create($validated);
   }
