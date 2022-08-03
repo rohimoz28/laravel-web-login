@@ -2,7 +2,7 @@
   <div class="position-sticky pt-3 sidebar-sticky">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="/user/index">
+        <a class="nav-link {{ Request::is('user') ? 'active' : '' }}" aria-current="page" href="/user">
           <span data-feather="home" class="align-text-bottom"></span>
           Dashboard
         </a>
@@ -14,13 +14,13 @@
     </h6>
     <ul class="nav flex-column mb-2">
       <li class="nav-item">
-        <a class="nav-link" href="/user/profile/{{ auth()->user()->id }}">
+        <a class="nav-link {{ Request::is('user/profile/*') ? 'active' : '' }}" href="/user/profile/{{ auth()->user()->id }}">
           <span data-feather="file-text" class="align-text-bottom"></span>
           Edit Profile
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/user/password/{{ auth()->user()->id }}">
+        <a class="nav-link {{ Request::is('user/password/*') ? 'active' : '' }}" href="/user/password/{{ auth()->user()->id }}">
           <span data-feather="file-text" class="align-text-bottom"></span>
           Change Password
         </a>

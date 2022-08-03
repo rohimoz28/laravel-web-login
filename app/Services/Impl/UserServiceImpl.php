@@ -7,6 +7,7 @@ use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserServiceImpl implements UserService
 {
@@ -22,17 +23,27 @@ class UserServiceImpl implements UserService
     $currentEmail = DB::table('users')->where('id', $id)->value('email');
 
     if ($currentEmail != $data['email']) {
-      $rules = [
+      $validated = $this->request->validate([
         'name' => 'required',
         'email' => 'required|unique:users',
-      ];
+        'image' => 'image|file|max:1024',
+      ]);
     } else {
-      $rules = [
+      $validated = $this->request->validate([
         'name' => 'required',
-      ];
+        'image' => 'image|file|max:1024',
+      ]);
     };
 
-    $validated = $this->request->validate($rules);
+    if ($this->request->hasFile('image')) {
+      if ($this->request->oldImage) {
+        Storage::delete($this->request->oldImage);
+      }
+
+      $validated['image'] = $this->request->file('image')->store('picture-profiles');
+    }
+
+    // $validateData = $this->request->validate($rules);
 
     User::where('id', $id)->update($validated);
   }
