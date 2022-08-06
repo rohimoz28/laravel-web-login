@@ -16,6 +16,7 @@ class AuthController extends Controller
   {
     $this->authService = $authService;
   }
+
   public function index()
   {
     return view('auth.index', [
