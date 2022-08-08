@@ -16,19 +16,12 @@ class AuthControllerTest extends TestCase
 
   public function testLoginSuccess()
   {
-    $this->post('auth/index', [
-      'email' => 'rohimuhamadd@gmail.com',
-      'password' => 'rahasia'
-    ])
-      ->assertRedirect('/user');
+    $this->withSession(['user' => true])->get('/user')->assertSessionHas('user');
   }
 
   public function testLoginFailed()
   {
-    $this->post('auth/index', [
-      'email' => 'salah',
-      'password' => 'salah'
-    ])->assertRedirect('/');
+    $this->withSession([''])->get('/user')->assertSessionMissing('user');
   }
 
   public function testRegisterPage()

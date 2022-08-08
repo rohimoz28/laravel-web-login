@@ -44,7 +44,7 @@ class AuthController extends Controller
 
     if ($this->authService->login($request->all())) {
 
-      $request->session()->put('user',$user);
+      $request->session()->put('user', $user);
 
       return redirect()->intended('user');
     }

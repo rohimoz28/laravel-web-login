@@ -17,9 +17,15 @@ class OnlyGuestMiddleware
    */
   public function handle(Request $request, Closure $next)
   {
-    if (Auth::check()) {
+    if ($request->session()->exists("user")) {
       return redirect("/");
+    } else {
+      return $next($request);
     }
-    return $next($request);
+    // if (Auth::check()) {
+    //   return redirect("/");
+    // } else {
+    //   return $next($request);
+    // }
   }
 }
