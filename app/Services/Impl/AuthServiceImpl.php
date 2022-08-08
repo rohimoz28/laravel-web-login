@@ -30,8 +30,9 @@ class AuthServiceImpl implements AuthService
       return false;
     }
 
-    $session = $this->request->session()->regenerate();
-    return $session;
+    return true;
+    // $session = $this->request->session()->regenerate();
+    // return $session;
   }
 
   public function register($data): void
