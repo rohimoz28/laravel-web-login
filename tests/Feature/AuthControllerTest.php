@@ -77,7 +77,7 @@ class AuthControllerTest extends TestCase
 
   public function testForgotPasswordPasswordNotMatch()
   {
-        $this->put('auth/forgot', [
+    $this->put('auth/forgot', [
       'email' => 'rohimuhamadd@gmail.com',
       'password' => 'rahasia',
       'password_confirmation' => 'salah'
