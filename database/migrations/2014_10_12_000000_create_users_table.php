@@ -17,9 +17,9 @@ return new class extends Migration
       $table->id();
       $table->string('name');
       $table->string('email')->unique();
-      $table->timestamp('email_verified_at')->nullable();
+      // $table->timestamp('email_verified_at')->nullable();
       $table->string('password');
-      $table->integer('role')->default(0);
+      // $table->integer('role')->default(0);
       $table->string('image')->default('default.jpeg');
       $table->rememberToken();
       $table->timestamps();
@@ -33,6 +33,8 @@ return new class extends Migration
    */
   public function down()
   {
+    DB::statement('SET FOREIGN_KEY_CHECKS = 0');
     Schema::dropIfExists('users');
+    DB::statement('SET FOREIGN_KEY_CHECKS = 1');
   }
 };
