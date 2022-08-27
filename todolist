@@ -1,0 +1,13 @@
+
+        ## UPDATE FEATURE ## 
+## Forgot password to use secret question ##
+
+1. Change config db for postgres
+2. Change view: 
+  - check email
+    - check secret question
+      - update password
+3. Update ServiceImpl: 
+  - add check email
+    - add check answer
+4. Upload to heroku
