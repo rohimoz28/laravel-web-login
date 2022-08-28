@@ -2,6 +2,7 @@
 
 namespace App\Services\Impl;
 
+use App\Models\SecretQuestion;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -16,6 +17,55 @@ class UserServiceImpl implements UserService
   public function __construct(Request $request)
   {
     $this->request = $request;
+  }
+
+  public function register($data)
+  {
+    $validated = $this->request->validate([
+      'name' => 'required',
+      'email' => 'required|email|unique:users',
+      'password' => 'required|confirmed',
+      'question' => 'notIn:0',
+      'answer' => 'required',
+      'image' => 'image|file|max:2048',
+    ], [
+      'question.not_in' => 'You need to choose the :attribute'
+    ]);
+
+    if ($this->request->file('image')) {
+      $validated['image'] = $this->request->file('image')->store('profile-pictures');
+    } else {
+      $validated['image'] = 'default.jpeg';
+    }
+
+    if ($this->request->file('image')) {
+      $validated['image'] = $this->request->file('image')->store('profile-pictures');
+    } else {
+      $validated['image'] = 'default.jpeg';
+    }
+
+    //input
+    DB::beginTransaction();
+    try {
+      $user = User::create([
+        'name' => $validated['name'],
+        'email' => $validated['email'],
+        'password' => Hash::make($validated['password']),
+        'image' => $validated['image']
+      ]);
+
+      $last_inserted_ID = $user->id;
+
+      SecretQuestion::create([
+        'user_id' => $last_inserted_ID,
+        'question' => $validated['question'],
+        'answer' => $validated['answer']
+      ]);
+      DB::commit();
+    } catch (\Exception $exception) {
+      DB::rollBack();
+      return $exception->getMessage();
+    }
   }
 
   public function updateProfile($data, $id): void

@@ -6,7 +6,7 @@ interface AuthService
 {
   public function login($data): bool;
 
-  public function register($data): void;
+  // public function register($data): void;
 
   public function getUser(string $email): ?object;
 

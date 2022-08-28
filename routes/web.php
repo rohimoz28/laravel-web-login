@@ -29,8 +29,8 @@ Route::resource('user', UserController::class)->except('destroy', 'create', 'sto
 Route::controller(AuthController::class)->group(function () {
   Route::get('/auth/index', 'index')->middleware([OnlyGuestMiddleware::class]);
   Route::post('/auth/index', 'doLogin')->middleware([OnlyGuestMiddleware::class]);
-  Route::get('/auth/register', 'register')->middleware([OnlyGuestMiddleware::class]);
-  Route::post('/auth/register', 'doRegister')->middleware([OnlyGuestMiddleware::class]);
+  // Route::get('/auth/register', 'register')->middleware([OnlyGuestMiddleware::class]);
+  // Route::post('/auth/register', 'doRegister')->middleware([OnlyGuestMiddleware::class]);
   Route::post('/auth/logout', 'logout')->middleware([OnlyMemberMiddleware::class]); //onlyMember
   Route::get('/auth/check-email', 'checkEmail');
   Route::post('/auth/check-email', 'doCheckEmail');
@@ -40,10 +40,12 @@ Route::controller(AuthController::class)->group(function () {
   Route::post('/auth/update-password', 'doUpdatePassword');
 });
 
-Route::controller(UserController::class)->middleware([OnlyMemberMiddleware::class])->group(function () {
-  route::get('/user/profile/{id}', 'editProfile');
+Route::controller(UserController::class)->group(function () {
+  Route::get('/user/register', 'create')->middleware([OnlyGuestMiddleware::class]);
+  Route::post('/user/register', 'store')->middleware([OnlyGuestMiddleware::class]);
+  route::get('/user/profile/{id}', 'editProfile')->middleware([OnlyMemberMiddleware::class]);
   route::put('/user/profile/{id}', 'updateProfile');
-  route::get('/user/password/{id}', 'editPassword');
+  route::get('/user/password/{id}', 'editPassword')->middleware([OnlyMemberMiddleware::class]);
   route::put('/user/password/{id}', 'updatePassword');
 });
 

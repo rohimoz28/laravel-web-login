@@ -36,34 +36,6 @@ class AuthServiceImpl implements AuthService
     // return $session;
   }
 
-  public function register($data): void
-  {
-    $validated = $this->request->validate([
-      'name' => 'required',
-      'email' => 'required|email|unique:users',
-      'password' => 'required|confirmed',
-      'image' => 'image|file|max:2048',
-    ]);
-
-    if ($this->request->file('image')) {
-      $validated['image'] = $this->request->file('image')->store('profile-pictures');
-    } else {
-      $validated['image'] = 'default.jpeg';
-    }
-
-
-    if ($this->request->file('image')) {
-      $validated['image'] = $this->request->file('image')->store('profile-pictures');
-    } else {
-      $validated['image'] = 'default.jpeg';
-    }
-
-    $validated['password'] =  Hash::make($validated['password']);
-
-    //input
-    User::create($validated);
-  }
-
   public function getUser($email): ?object
   {
     // $user = DB::table('users')->where('email', $email)->first();

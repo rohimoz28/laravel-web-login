@@ -65,7 +65,9 @@ class UserController extends Controller
    */
   public function create()
   {
-    //
+    return view('auth.register', [
+      'title' => 'Registration'
+    ]);
   }
 
   /**
@@ -76,7 +78,10 @@ class UserController extends Controller
    */
   public function store(Request $request)
   {
-    //
+    $this->userService->register($request->all());
+
+    //redirect
+    return redirect('auth/index')->with('success', 'Registration success, Please Login.');
   }
 
   /**

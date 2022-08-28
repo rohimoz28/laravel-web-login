@@ -1,13 +1,8 @@
 
-        ## UPDATE FEATURE ## 
-## Forgot password to use secret question ##
+                ## UPDATE FEATURE ## 
+## User Registration Add Select Option for Secret Question ##
 
-1. Change config db for postgres | done
-2. Change view: 
-  - check email | done
-    - check secret question | done
-      - update password | done
-3. Update ServiceImpl: 
-  - add check email
-    - add check answer
+1. Update view registration | done
+2. Update Service registration
+3. Update Controller Registration
 4. Upload to heroku

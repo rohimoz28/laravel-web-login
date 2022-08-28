@@ -26,19 +26,19 @@ class AuthController extends Controller
     ]);
   }
 
-  public function register()
-  {
-    return view('auth.register', [
-      'title' => 'Registration'
-    ]);
-  }
-
-  public function doRegister(Request $request)
-  {
-    $this->authService->register($request->all());
-    //redirect
-    return redirect('/')->with('success', 'Registration success, Please Login.');
-  }
+  // public function register()
+  // {
+  //   return view('auth.register', [
+  //     'title' => 'Registration'
+  //   ]);
+  // }
+  //
+  // public function doRegister(Request $request)
+  // {
+  //   $this->authService->register($request->all());
+  //   //redirect
+  //   return redirect('/')->with('success', 'Registration success, Please Login.');
+  // }
 
   public function doLogin(Request $request)
   {

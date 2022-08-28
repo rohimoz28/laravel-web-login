@@ -10,12 +10,12 @@
         {{ session('failed') }}
       </div>
       @endif
-      <form class="mb-1" method="POST" action="/auth/register" enctype="multipart/form-data">
+      <form class="mb-1" method="POST" action="/user/register" enctype="multipart/form-data">
         @csrf
         <div class="form-floating">
           <input type="text" class="form-control mb-2 @error('name') is-invalid @enderror" name="name" id="floatingInput" placeholder="name@example.com" value="{{ old('name') }}">
           <label for="floatingInput">Name</label>
-          @error('email')
+          @error('name')
           <div class="invalid-feedback text-start">
             {{ $message }}
           </div>
@@ -48,6 +48,29 @@
           </div>
           @enderror
         </div>
+        <div class="form-floating mb-2">
+          <select class="form-select @error('question') is-invalid @enderror" id="floatingSelect" name="question">
+            <option selected value="0">-- Secret Question --</option>
+            <option value="In what city did you meet your spouse/significant other?" {{ old('question') == 'In what city did you meet your spouse/significant other?' ? 'selected' : '' }}>In what city did you meet your spouse/significant other?</option>
+            <option value="Where were you when you had your first kiss?" {{ old('question') == 'Where were you when you had your first kiss?' ? 'selected' : '' }}>Where were you when you had your first kiss?</option>
+            <option value="In what city or town did your mother and father meet?" {{ old('question') == 'In what city or town did your mother and father meet?' ? 'selected' : '' }}>In what city or town did your mother and father meet?</option>
+          </select>
+          <label for="floatingSelect">Works with selects</label>
+          @error('question')
+          <div class="invalid-feedback text-start">
+            {{ $message }}
+          </div>
+          @enderror
+        </div>
+        <div class="form-floating mb-2">
+          <input type="text" class="form-control mb-2 @error('answer') is-invalid @enderror" name="answer" id="floatingInput" placeholder="Your answer" value="{{ old('answer') }}">
+          <label for="floatingInput">Answer</label>
+          @error('answer')
+          <div class="invalid-feedback text-start">
+            {{ $message }}
+          </div>
+          @enderror
+        </div>
         <!-- imagePreview -->
         <!-- <div class="mb-3"> -->
         <!--   <label for="image" class="form-label">Post Image</label> -->
@@ -69,7 +92,7 @@
           @enderror
         </div>
 
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
+        <button class="w-100 btn btn-lg btn-success" type="submit">Submit</button>
       </form>
       <a href="/auth/index" class="w-100 btn btn-lg btn-primary">Back to login</a>
     </main>
