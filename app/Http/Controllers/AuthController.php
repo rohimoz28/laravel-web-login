@@ -6,7 +6,9 @@ use App\Models\User;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class AuthController extends Controller
 {
@@ -53,37 +55,88 @@ class AuthController extends Controller
     return back()->with('failed', 'Username or password wrong!');
   }
 
-  public function forgotPassword()
+  public function checkEmail()
   {
-    return view('auth.forgot-password', [
-      'title' => 'Forgot Password'
+    return view('auth.check-email', [
+      'title' => 'Email Validation'
     ]);
   }
 
-  public function updatePassword(Request $request)
+  public function doCheckEmail(Request $request)
+  {
+    $email = $request->input('email');
+    $user =  $this->authService->getUser($email);
+
+    if (!$user) {
+      return redirect()->back()->with('failed', 'Email is not registered!');
+    }
+
+    if ($request->session()->has('email', 'question', 'answer')) {
+      $request->session()->forget(['email', 'question', 'answer']);
+    }
+
+    $question = $user->question;
+    $answer = $user->answer;
+
+    $request->session()->put('email', $email);
+    $request->session()->put('question', $question);
+    $request->session()->put('answer', $answer);
+
+    return redirect()->to('auth/secret-question');
+  }
+
+  public function secretQuestion(Request $request)
+  {
+    // $email = $request->session()->get('email');
+    $question = $request->session()->get('question');
+
+    return view('auth.secret-question', [
+      'title' => 'Secret Question',
+      'question' => $question
+    ]);
+  }
+
+  public function checkAnswer(Request $request)
+  {
+    $email = $request->session()->get('email');
+    $answer = $request->input('answer');
+
+    $is_answer = $this->authService->checkAnswer($email, $answer);
+
+    if (!$is_answer) {
+      return redirect()->to('auth/secret-question')->with('failed', 'Your answer is wrong!');
+    }
+
+    return redirect()->to('auth/update-password');
+    // return view('auth/update-password', [
+    //   'title' => 'Update Password',
+    //   'email' => $email,
+    // ]);
+  }
+
+  public function updatePassword()
+  {
+    return view('auth/update-password', [
+      'title' => 'Update Password'
+    ]);
+  }
+
+  public function doUpdatePassword(Request $request)
   {
     //validasi
-    $validated = $request->validate([
-      'email' => 'required',
-      'password' => 'required|confirmed'
+    $request->validate([
+      'password' => 'required|confirmed',
+      'password_confirmation' => 'required'
     ]);
 
-    //cek email
-    $email = User::where('email', $validated['email'])->first();
+    $email = $request->session()->get('email');
+    $password = $request->input('password');
 
-    if ($email == null) {
-      return back()->with('failed', 'Wrong Email!');
-    }
-    //hash
-    $validated['password'] =  Hash::make($validated['password']);
-    $data = [
-      'password' => $validated['password'],
-    ];
-    //update password
-    User::where('id', $email->id)
-      ->update($data);
-    //redirect
-    return redirect('/')->with('success', 'Password has been changed!');
+    $this->authService->updatePassword($email, $password);
+
+    $request->session()->forget(['email', 'question', 'answer']);
+
+    return redirect()->to('auth/index')->with('success', 'Password has been changed!');
   }
 
   public function logout(Request $request)

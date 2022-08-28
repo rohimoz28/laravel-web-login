@@ -2,11 +2,11 @@
         ## UPDATE FEATURE ## 
 ## Forgot password to use secret question ##
 
-1. Change config db for postgres
+1. Change config db for postgres | done
 2. Change view: 
-  - check email
-    - check secret question
-      - update password
+  - check email | done
+    - check secret question | done
+      - update password | done
 3. Update ServiceImpl: 
   - add check email
     - add check answer
