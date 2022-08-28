@@ -17,15 +17,10 @@ class OnlyMemberMiddleware
    */
   public function handle(Request $request, Closure $next)
   {
-    // if ($request->session()->exists("user")) {
-    //   return $next($request);
-    // } else  {
-    //   return redirect("/");
-    // }
     if (Auth::check()) {
       return $next($request);
-    } else {
-      return redirect("/");
     }
+
+    return redirect("/");
   }
 }

@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class OnlyGuestMiddleware
+class EnsureSession
 {
   /**
    * Handle an incoming request.
@@ -17,10 +16,10 @@ class OnlyGuestMiddleware
    */
   public function handle(Request $request, Closure $next)
   {
-    if ($request->session()->exists("user")) {
-      return redirect("/");
+    if ($request->session()->has("email")) {
+      return $next($request);
     }
 
-    return $next($request);
+    return redirect("auth/index");
   }
 }

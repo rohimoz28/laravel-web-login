@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\EnsureSession;
 use App\Http\Middleware\OnlyGuestMiddleware;
 use App\Http\Middleware\OnlyMemberMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -33,9 +34,9 @@ Route::controller(AuthController::class)->group(function () {
   Route::post('/auth/logout', 'logout')->middleware([OnlyMemberMiddleware::class]); //onlyMember
   Route::get('/auth/check-email', 'checkEmail');
   Route::post('/auth/check-email', 'doCheckEmail');
-  Route::get('/auth/secret-question', 'secretQuestion');
+  Route::get('/auth/secret-question', 'secretQuestion')->middleware([EnsureSession::class]);
   Route::post('/auth/secret-question', 'checkAnswer');
-  Route::get('/auth/update-password', 'updatePassword');
+  Route::get('/auth/update-password', 'updatePassword')->middleware([EnsureSession::class]);
   Route::post('/auth/update-password', 'doUpdatePassword');
 });
 
