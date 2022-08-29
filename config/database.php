@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Str;
 
+$DATABASE_URL = parse_url('postgres://xujnrftlrfkcjl:9bac062b4a83de02fa5d2f9486f9cca7b86fb9327c3930eed0d366632aaf8b2b@ec2-52-20-166-21.compute-1.amazonaws.com:5432/d97j9ag85gaegu');
+
 return [
 
   /*
@@ -80,7 +82,7 @@ return [
 
     'pgsql' => [
       'driver' => 'pgsql',
-      'url' => parse_url('postgres://xujnrftlrfkcjl:9bac062b4a83de02fa5d2f9486f9cca7b86fb9327c3930eed0d366632aaf8b2b@ec2-52-20-166-21.compute-1.amazonaws.com:5432/d97j9ag85gaegu'),
+      // 'url' => parse_url('postgres://xujnrftlrfkcjl:9bac062b4a83de02fa5d2f9486f9cca7b86fb9327c3930eed0d366632aaf8b2b@ec2-52-20-166-21.compute-1.amazonaws.com:5432/d97j9ag85gaegu'),
       'host' => $DATABASE_URL["host"],
       'port' => $DATABASE_URL["port"],
       'database' => ltrim($DATABASE_URL["path"], "/"),
