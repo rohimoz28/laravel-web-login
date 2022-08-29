@@ -3,6 +3,7 @@
 ## Project
 
 [![laravel-web-login.png](https://i.postimg.cc/W4cK6nVW/laravel-web-login.png)](https://postimg.cc/w1F09D7L)
+
 Simple web login management using Laravel 9.
 
 Please visit my [demo](https://laravel-web-login.herokuapp.com/auth/index) at heroku.
