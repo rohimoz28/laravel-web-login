@@ -1,8 +1,8 @@
 
-                ## UPDATE FEATURE ## 
-## User Registration Add Select Option for Secret Question ##
+    ## ADD FEATURE ## 
+## Feature Attendance ##
 
-1. Update view registration | done
-2. Update Service registration | done
-3. Update Controller Registration | done
-4. Upload to heroku
+1. Buat view attendance
+2. Buat migration & model
+3. Buat Logic
+4. Upload heroku
