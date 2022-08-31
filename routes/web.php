@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Middleware\EnsureSession;
 use App\Http\Middleware\OnlyGuestMiddleware;
 use App\Http\Middleware\OnlyMemberMiddleware;
@@ -47,6 +48,12 @@ Route::controller(UserController::class)->group(function () {
   route::put('/user/profile/{id}', 'updateProfile');
   route::get('/user/password/{id}', 'editPassword')->middleware([OnlyMemberMiddleware::class]);
   route::put('/user/password/{id}', 'updatePassword');
+});
+
+Route::controller(AttendanceController::class)->group(function () {
+  Route::get('/attendance/absence/{id}', 'absence');
+  Route::post('/attendance/absence/{id}', 'doAbsence');
+  Route::get('/attendance/attendance-list/{id}', 'list');
 });
 
 Route::fallback(function () {
