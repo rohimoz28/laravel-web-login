@@ -72,7 +72,7 @@ class AttendanceController extends Controller
   {
     $attendances = DB::table('attendances')
       ->where('user_id', $id)
-      ->get();
+      ->paginate(6);
 
     return view('attendance/attendance-list', [
       'title' => 'List',

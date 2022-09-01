@@ -40,5 +40,6 @@
       @endforeach
     </tbody>
   </table>
+  {{ $attendances->onEachSide(5)->links() }}
 </div>
 @endsection
