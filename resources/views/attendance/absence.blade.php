@@ -23,9 +23,9 @@
     </thead>
     <tbody>
       <tr>
-        <th scope="row">31/08/2022</th>
-        <td>10:10:10</td>
-        <td></td>
+        <th scope="row">{{ $attendances->date }}</th>
+        <td>{{ date("H:i:s", substr($attendances->start, 0, 10)) }}</td>
+        <td>{{ date("H:i:s", substr($attendances->end, 0, 10)) }}</td>
       </tr>
     </tbody>
   </table>

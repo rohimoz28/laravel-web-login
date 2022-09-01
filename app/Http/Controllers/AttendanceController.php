@@ -13,9 +13,19 @@ class AttendanceController extends Controller
 
   public function absence($id)
   {
+
+    $date = date("Y-m-d");
+    $attendance = DB::table('users')
+      ->join('attendances', 'users.id', '=', 'attendances.user_id')
+      ->select('users.*', 'attendances.*')
+      ->where('attendances.date', $date)
+      ->where('attendances.user_id', $id)
+      ->first();
+
     return view('attendance/absence', [
       'title' => 'Absence',
       'user' => User::find($id),
+      'attendances' => $attendance,
     ]);
   }
 
