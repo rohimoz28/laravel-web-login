@@ -15,17 +15,18 @@ class AttendanceController extends Controller
   {
 
     $date = date("Y-m-d");
-    $attendance = DB::table('users')
-      ->join('attendances', 'users.id', '=', 'attendances.user_id')
-      ->select('users.*', 'attendances.*')
-      ->where('attendances.date', $date)
-      ->where('attendances.user_id', $id)
+
+    $attendances = DB::table('attendances')
+      ->where('user_id', $id)
+      ->where('date', $date)
       ->first();
+
+    // return $attendances;
 
     return view('attendance/absence', [
       'title' => 'Absence',
       'user' => User::find($id),
-      'attendances' => $attendance,
+      'attendances' => $attendances,
     ]);
   }
 
@@ -40,8 +41,7 @@ class AttendanceController extends Controller
       ->where('date', $date_now)
       ->first();
 
-
-    if (is_null($absence_now)) {
+    if (is_null($absence_now)) {  //hari ini sudah absen datang?
       Attendance::create([
         'user_id' => $id,
         'date' => $date_now,
@@ -49,11 +49,23 @@ class AttendanceController extends Controller
       ]);
       return "Absen datang berhasil";
     } else {
-      DB::table('attendances')
+      // sudah absen pulang?
+      $absence_end = DB::table('attendances')
         ->where('user_id', $id)
         ->where('date', $date_now)
-        ->update(['end' => $epoch]);
-      return "Absen pulang berhasil";
+        ->whereNotNull('end')
+        ->first();
+
+      if ($absence_end) {
+        return 'Besok lagi absennya!';
+      } else {
+        //belum absen pulang
+        DB::table('attendances')
+          ->where('user_id', $id)
+          ->where('date', $date_now)
+          ->update(['end' => $epoch]);
+        return "Absen pulang berhasil";
+      }
     }
   }
 
