@@ -18,30 +18,32 @@ class AttendanceSeeder extends Seeder
   {
     Attendance::create([
       'user_id' => 1,
-      'date' => Carbon::create('2022','08', '30'),
+      'date' => Carbon::create('2022', '08', '30'),
       'start' => 1493931422000,
       'end' => 1493906522000
     ]);
 
     Attendance::create([
       'user_id' => 1,
-      'date' => Carbon::create('2022','08', '31'),
+      'date' => Carbon::create('2022', '08', '31'),
       'start' => 1493931422000,
       'end' => 1493906522000
     ]);
 
     Attendance::create([
       'user_id' => 2,
-      'date' => Carbon::create('2022','08', '30'),
+      'date' => Carbon::create('2022', '08', '30'),
       'start' => 1493931422000,
       'end' => 1493906522000
     ]);
-    
+
     Attendance::create([
       'user_id' => 2,
-      'date' => Carbon::create('2022','08', '31'),
+      'date' => Carbon::create('2022', '08', '31'),
       'start' => 1493931422000,
       'end' => 1493906522000
     ]);
+
+    Attendance::factory()->count(30)->create();
   }
 }

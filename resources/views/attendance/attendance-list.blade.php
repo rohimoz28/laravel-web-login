@@ -31,21 +31,13 @@
       </tr>
     </thead>
     <tbody>
+      @foreach($attendances as $attendance)
       <tr>
-        <th scope="row">31/08/2022</th>
-        <td>10:10:10</td>
-        <td></td>
+        <th scope="row">{{ $attendance->date }}</th>
+        <td>{{ (is_null($attendance->start)) ? 'Not Yet' : date("H:i:s", substr($attendance->start, 0, 10)) }}</td>
+        <td>{{ (is_null($attendance->start)) ? 'Not Yet' : date("H:i:s", substr($attendance->start, 0, 10)) }}</td>
       </tr>
-      <tr>
-        <th scope="row">30/08/2022</th>
-        <td>10:10:10</td>
-        <td>05:05:05</td>
-      </tr>
-      <tr>
-        <th scope="row">29/08/2022</th>
-        <td>10:10:10</td>
-        <td>05:05:05</td>
-      </tr>
+      @endforeach
     </tbody>
   </table>
 </div>

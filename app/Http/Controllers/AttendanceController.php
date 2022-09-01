@@ -20,7 +20,6 @@ class AttendanceController extends Controller
       ->where('user_id', $id)
       ->where('date', $date)
       ->first();
-
     // return $attendances;
 
     return view('attendance/absence', [
@@ -71,9 +70,14 @@ class AttendanceController extends Controller
 
   public function list($id)
   {
+    $attendances = DB::table('attendances')
+      ->where('user_id', $id)
+      ->get();
+
     return view('attendance/attendance-list', [
       'title' => 'List',
       'user' => User::find($id),
+      'attendances' => $attendances,
     ]);
   }
 }
