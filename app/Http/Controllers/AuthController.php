@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
 
 class AuthController extends Controller
 {
@@ -26,24 +22,9 @@ class AuthController extends Controller
     ]);
   }
 
-  // public function register()
-  // {
-  //   return view('auth.register', [
-  //     'title' => 'Registration'
-  //   ]);
-  // }
-  //
-  // public function doRegister(Request $request)
-  // {
-  //   $this->authService->register($request->all());
-  //   //redirect
-  //   return redirect('/')->with('success', 'Registration success, Please Login.');
-  // }
-
   public function doLogin(Request $request)
   {
-    $email = $request->input('email');
-    $user = $this->authService->getUserID($email);
+    $user = $this->authService->getUserID($request->input('email'));
 
     if ($this->authService->login($request->all())) {
 
@@ -66,8 +47,7 @@ class AuthController extends Controller
 
   public function doCheckEmail(Request $request)
   {
-    $email = $request->input('email');
-    $user =  $this->authService->getUser($email);
+    $user =  $this->authService->getUser($request->input('email'));
 
     if (!$user) {
       return redirect()->back()->with('failed', 'Email is not registered!');
@@ -80,7 +60,7 @@ class AuthController extends Controller
     $question = $user->question;
     $answer = $user->answer;
 
-    $request->session()->put('email', $email);
+    $request->session()->put('email', $request->input('email'));
     $request->session()->put('question', $question);
     $request->session()->put('answer', $answer);
 
@@ -89,7 +69,6 @@ class AuthController extends Controller
 
   public function secretQuestion(Request $request)
   {
-    // $email = $request->session()->get('email');
     $question = $request->session()->get('question');
 
     return view('auth.secret-question', [
@@ -110,10 +89,6 @@ class AuthController extends Controller
     }
 
     return redirect()->to('auth/update-password');
-    // return view('auth/update-password', [
-    //   'title' => 'Update Password',
-    //   'email' => $email,
-    // ]);
   }
 
   public function updatePassword()
