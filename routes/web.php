@@ -53,7 +53,7 @@ Route::controller(UserController::class)->group(function () {
 Route::controller(AttendanceController::class)->group(function () {
   // Route::get('/attendance/absence/{id}', 'absence');
   Route::get('/attendance/absence', 'absence');
-  Route::post('/attendance/absence/{id}', 'doAbsence');
+  Route::post('/attendance/absence', 'doAbsence');
   // Route::get('/attendance/attendance-list/{id}', 'list');
   Route::get('/attendance/attendance-list', 'list');
   // Route::get('/attendance/search', 'search');

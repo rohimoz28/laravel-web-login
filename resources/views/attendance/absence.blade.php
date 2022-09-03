@@ -12,6 +12,12 @@
 </div>
 @endif
 
+@if(session('failed'))
+<div class="alert alert-danger col-lg-5">
+  {{ session('failed') }}
+</div>
+@endif
+
 <div class="col-lg-5">
   <table class="table table-bordered">
     <thead>
@@ -24,8 +30,8 @@
     <tbody>
       <tr>
         <th scope="row">{{ date('Y-m-d')  }}</th>
-        <td>{{ (is_null($attendances)) ? 'Not Yet' : date("H:i:s", substr($attendances->start, 0, 10)) }}</td>
-        <td>{{ (is_null($attendances) || is_null($attendances->end)) ? 'Not Yet' : date("H:i:s", substr($attendances->end, 0, 10)) }}</td>
+        <td>{{ (is_null($absence)) ? 'Not Yet' : date("H:i:s", substr($absence->start, 0, 10)) }}</td>
+        <td>{{ (is_null($absence) || is_null($absence->end)) ? 'Not Yet' : date("H:i:s", substr($absence->end, 0, 10)) }}</td>
       </tr>
     </tbody>
   </table>

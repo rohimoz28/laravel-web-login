@@ -4,67 +4,57 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use App\Models\User;
+use App\Services\AttendanceService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
 {
+  private AttendanceService $attendanceService;
 
-  public function absence(Request $request)
+  public function __construct(AttendanceService $attendanceService)
   {
-    $id = $request->session()->get('id');
-    $date = date("Y-m-d");
+    $this->attendanceService = $attendanceService;
+  }
 
-    $attendances = DB::table('attendances')
-      ->where('user_id', $id)
-      ->where('date', $date)
-      ->first();
-    // return $attendances;
+  public function absence()
+  {
+    $absence = $this->attendanceService->getAttendance();
 
     return view('attendance/absence', [
       'title' => 'Absence',
-      'user' => User::find($id),
-      'attendances' => $attendances,
+      'user' => User::find(session('id')),
+      'absence' => $absence,
     ]);
   }
 
-  public function doAbsence($id)
+  public function doAbsence()
   {
-    $epoch = round(microtime(true) * 1000);
-    $date_now = date("Y-m-d", substr($epoch, 0, 10));
-    // return $date_now;
+    $absence = $this->attendanceService->getAttendance();
+    $absence_end = $this->attendanceService->getAttendanceEnd();
 
-    $absence_now = DB::table('attendances')
-      ->where('user_id', $id)
-      ->where('date', $date_now)
-      ->first();
-
-    if (is_null($absence_now)) {  //hari ini sudah absen datang?
+    // already absence start?
+    if (is_null($absence)) {
       Attendance::create([
-        'user_id' => $id,
-        'date' => $date_now,
-        'start' => $epoch,
+        'user_id' => session('id'),
+        'date' => date("Y-m-d"),
+        'start' => round(microtime(true) * 1000), // getMilis
       ]);
-      return "Absen datang berhasil";
-    } else {
-      // sudah absen pulang?
-      $absence_end = DB::table('attendances')
-        ->where('user_id', $id)
-        ->where('date', $date_now)
-        ->whereNotNull('end')
-        ->first();
 
-      if ($absence_end) {
-        return 'Besok lagi absennya!';
-      } else {
-        //belum absen pulang
-        DB::table('attendances')
-          ->where('user_id', $id)
-          ->where('date', $date_now)
-          ->update(['end' => $epoch]);
-        return "Absen pulang berhasil";
-      }
+      return redirect('attendance/absence')->with('success', "Absence Success. Have a good day!");
     }
+
+    // already absence end
+    if ($absence_end) {
+      return redirect('attendance/absence')->with('failed', "You already absence twice!");
+    }
+
+    // do absence end
+    Attendance::where('user_id', session('id'))
+      ->where('date', date("Y-m-d"))
+      ->update(['end' => round(microtime(true) * 1000)]);
+
+    return redirect('attendance/absence')->with('success', "Absence Success. See you tomorrow!");
   }
 
   public function list(Request $request)
@@ -89,7 +79,7 @@ class AttendanceController extends Controller
     $search = $request->input('search');
     $month = date("m");
 
-    if ($search = $request->input('search')) { 
+    if ($search = $request->input('search')) {
       $attendances = DB::table('attendances')
         ->where('user_id', $id)
         ->whereMonth('date', $search)

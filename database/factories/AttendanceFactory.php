@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use DateTime;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +16,7 @@ class AttendanceFactory extends Factory
    */
   public function definition()
   {
-    $events = $this->faker->dateTimeBetween('-70 days', '-10 days');
+    $events = $this->faker->dateTimeBetween('-70 days', '-5 days');
 
     return [
       'user_id' => $this->faker->numberBetween(1, 2),
