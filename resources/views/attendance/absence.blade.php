@@ -38,7 +38,7 @@
 </div>
 
 <div class="col-lg-4">
-  <form action="/attendance/absence/<?= $user->id ?>" method="POST">
+  <form action="/attendance/absence" method="POST">
     @csrf
     <button type="submit" class="btn btn-primary btn-lg" name="submit">Enroll</button>
   </form>
