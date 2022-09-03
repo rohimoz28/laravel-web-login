@@ -18,7 +18,7 @@
       <select class="form-select" id="inlineFormSelectPref" name="search">
         <option selected>Choose...</option>
         @foreach($months as $number => $month)
-        <option value="{{ $number }} {{ old('search') == $number ? 'selected' :  '' }}">{{ $month }}</option>
+        <option value="{{ $number }}" {{ request("search") == $number ? "selected" :  "" }}>{{ $month }}</option>
         @endforeach
       </select>
     </div>

@@ -95,6 +95,7 @@ class AttendanceController extends Controller
         ->whereMonth('date', $search)
         ->orderBy('date', 'desc')
         ->paginate(6);
+
       $attendances->appends(['search' => $search]);
 
       return view('attendance/attendance-list', [
