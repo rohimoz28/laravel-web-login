@@ -36,6 +36,15 @@ class AuthServiceImpl implements AuthService
     // return $session;
   }
 
+  public function getUserID(string $email): ?object
+  {
+    $user = DB::table('users')
+      ->where('email', $email)
+      ->first();
+
+    return $user;
+  }
+
   public function getUser($email): ?object
   {
     // $user = DB::table('users')->where('email', $email)->first();

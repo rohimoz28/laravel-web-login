@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
 {
 
-  public function absence($id)
+  public function absence(Request $request)
   {
-
+    $id = $request->session()->get('id');
     $date = date("Y-m-d");
 
     $attendances = DB::table('attendances')
@@ -68,16 +67,90 @@ class AttendanceController extends Controller
     }
   }
 
-  public function list($id)
+  public function list(Request $request)
   {
+    $id = $request->session()->get('id');
+    $months = [
+      1 => 'January',
+      2 => 'February',
+      3 => 'Maret',
+      4 => 'April',
+      5 => 'May',
+      6 => 'June',
+      7 => 'July',
+      8 => 'August',
+      9 => 'September',
+      10 => 'October',
+      11 => 'November',
+      12 => 'December'
+    ];
+
+
+    $search = $request->input('search');
+    $month = date("m");
+
+    if ($search = $request->input('search')) { 
+      $attendances = DB::table('attendances')
+        ->where('user_id', $id)
+        ->whereMonth('date', $search)
+        ->orderBy('date', 'desc')
+        ->paginate(6);
+      $attendances->appends(['search' => $search]);
+
+      return view('attendance/attendance-list', [
+        'title' => 'List',
+        'user' => User::find($id),
+        'attendances' => $attendances,
+        'months' => $months,
+      ]);
+    } else {
+      $attendances = DB::table('attendances')
+        ->where('user_id', $id)
+        ->whereMonth('date', $month)
+        ->orderBy('date', 'desc')
+        ->paginate(6);
+
+      return view('attendance/attendance-list', [
+        'title' => 'List',
+        'user' => User::find($id),
+        'attendances' => $attendances,
+        'months' => $months,
+      ]);
+    }
+  }
+
+  public function search(Request $request)
+  {
+    $user_ID = $request->session()->get('id');
+    $month = $request->input('search');
+
+    $months = [
+      1 => 'January',
+      2 => 'February',
+      3 => 'Maret',
+      4 => 'April',
+      5 => 'May',
+      6 => 'June',
+      7 => 'July',
+      8 => 'August',
+      9 => 'September',
+      10 => 'October',
+      11 => 'November',
+      12 => 'December'
+    ];
+    // $search = $request->input('search');
+
     $attendances = DB::table('attendances')
-      ->where('user_id', $id)
+      ->where('user_id', $user_ID)
+      ->whereMonth('date', $month)
+      ->orderBy('date', 'desc')
       ->paginate(6);
 
-    return view('attendance/attendance-list', [
+    return view('attendance/attendance-list', [ //should not return a view
       'title' => 'List',
-      'user' => User::find($id),
+      'user' => User::find($user_ID),
       'attendances' => $attendances,
+      'months' => $months,
     ]);
   }
 }

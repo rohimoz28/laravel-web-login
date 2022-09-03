@@ -42,11 +42,13 @@ class AuthController extends Controller
 
   public function doLogin(Request $request)
   {
-    $user = $request->input('name');
+    $email = $request->input('email');
+    $user = $this->authService->getUserID($email);
 
     if ($this->authService->login($request->all())) {
 
-      $request->session()->put('user', $user);
+      $request->session()->put('id', $user->id);
+      $request->session()->put('email', $user->email);
 
       return redirect()->intended('user');
     }

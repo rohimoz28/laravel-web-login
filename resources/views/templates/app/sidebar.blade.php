@@ -14,13 +14,13 @@
     </h6>
     <ul class="nav flex-column mb-2">
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('user/profile/*') ? 'active' : '' }}" href="/attendance/absence/{{ auth()->user()->id }}">
+        <a class="nav-link {{ Request::is('user/profile/*') ? 'active' : '' }}" href="/attendance/absence">
           <span data-feather="file-text" class="align-text-bottom"></span>
          Absence 
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('user/password/*') ? 'active' : '' }}" href="/attendance/attendance-list/{{ auth()->user()->id }}">
+        <a class="nav-link {{ Request::is('user/password/*') ? 'active' : '' }}" href="/attendance/attendance-list">
           <span data-feather="file-text" class="align-text-bottom"></span>
          Attendance List 
         </a>
