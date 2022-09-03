@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //   return view('auth/index');
 // });
+
 Route::get('/', [HomeController::class, 'home']);
 
 Route::resource('user', UserController::class)->except('destroy', 'create', 'store', 'show');
@@ -30,8 +31,6 @@ Route::resource('user', UserController::class)->except('destroy', 'create', 'sto
 Route::controller(AuthController::class)->group(function () {
   Route::get('/auth/index', 'index')->middleware([OnlyGuestMiddleware::class]);
   Route::post('/auth/index', 'doLogin')->middleware([OnlyGuestMiddleware::class]);
-  // Route::get('/auth/register', 'register')->middleware([OnlyGuestMiddleware::class]);
-  // Route::post('/auth/register', 'doRegister')->middleware([OnlyGuestMiddleware::class]);
   Route::post('/auth/logout', 'logout')->middleware([OnlyMemberMiddleware::class]); //onlyMember
   Route::get('/auth/check-email', 'checkEmail');
   Route::post('/auth/check-email', 'doCheckEmail');
@@ -51,12 +50,9 @@ Route::controller(UserController::class)->group(function () {
 });
 
 Route::controller(AttendanceController::class)->group(function () {
-  // Route::get('/attendance/absence/{id}', 'absence');
   Route::get('/attendance/absence', 'absence');
   Route::post('/attendance/absence', 'doAbsence');
-  // Route::get('/attendance/attendance-list/{id}', 'list');
   Route::get('/attendance/attendance-list', 'list');
-  // Route::get('/attendance/search', 'search');
 });
 
 Route::fallback(function () {

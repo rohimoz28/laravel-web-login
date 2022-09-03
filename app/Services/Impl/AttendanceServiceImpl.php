@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class AttendanceServiceImpl implements AttendanceService
 {
-  public function getAttendance(): ?object
+  public function getUserAttendance(): ?object
   {
     $epoch = round(microtime(true) * 1000);
     $date = date("Y-m-d", substr($epoch, 0, 10));
@@ -32,5 +32,26 @@ class AttendanceServiceImpl implements AttendanceService
       ->first();
 
     return $attendanceEnd;
+  }
+
+  public function getAttendanceList(): ?object
+  {
+    $attendances = DB::table('attendances')
+      ->where('user_id', session('id'))
+      ->orderBy('date', 'desc')
+      ->paginate(6);
+
+    return $attendances;
+  }
+
+  public function search(string $search): ?object
+  {
+    $attendances = DB::table('attendances')
+      ->where('user_id', session('id'))
+      ->whereMonth('date', $search)
+      ->orderBy('date', 'desc')
+      ->paginate(6);
+
+    return $attendances->appends(['search' => $search]);
   }
 }
