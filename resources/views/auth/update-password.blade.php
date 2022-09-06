@@ -11,7 +11,7 @@
       </div>
       @endif
 
-      <form class="mb-1" method="POST" action="/auth/update-password">
+      <form class="mb-1" method="POST" action="/update-password">
         @csrf
         <div class="form-floating">
           <input type="password" class="form-control mb-2 @error('password') is-invalid @enderror" name="password" id="password" placeholder="password">

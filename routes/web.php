@@ -43,15 +43,6 @@ Route::controller(AuthController::class)->group(function () {
   Route::post('/', 'doLogin');
 
   Route::post('/logout', 'logout')->middleware([OnlyMemberMiddleware::class]);
-
-  Route::get('check-email', 'checkEmail')->middleware([OnlyGuestMiddleware::class]);
-  Route::post('check-email', 'doCheckEmail');
-
-  Route::get('secret-question', 'secretQuestion')->middleware([OnlyGuestMiddleware::class]);;
-  Route::post('secret-question', 'checkAnswer');
-
-  Route::get('update-password', 'updatePassword')->middleware([OnlyGuestMiddleware::class]);;
-  Route::post('update-password', 'doUpdatePassword');
 });
 
 
@@ -59,12 +50,24 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::controller(UserController::class)->group(function () {
   Route::get('/user', 'index')->middleware([OnlyMemberMiddleware::class]);
+
   Route::get('/user/register', 'create')->middleware([OnlyGuestMiddleware::class]);
   Route::post('/user/register', 'store');
-  route::get('/user/profile/{id}', 'editProfile')->middleware([OnlyMemberMiddleware::class]);
-  route::put('/user/profile/{id}', 'updateProfile');
-  route::get('/user/password/{id}', 'editPassword')->middleware([OnlyMemberMiddleware::class]);
-  route::put('/user/password/{id}', 'updatePassword');
+
+  // route::get('/user/profile/{id}', 'editProfile')->middleware([OnlyMemberMiddleware::class]);
+  // route::put('/user/profile/{id}', 'updateProfile');
+  //
+  // route::get('/user/password', 'editPassword')->middleware([OnlyMemberMiddleware::class]);
+  // route::put('/user/password', 'updatePassword');
+
+  Route::get('/check-email', 'checkEmail')->middleware([OnlyGuestMiddleware::class]);
+  Route::post('/check-email', 'doCheckEmail');
+
+  Route::get('/secret-question', 'secretQuestion')->middleware([OnlyGuestMiddleware::class]);;
+  Route::post('/secret-question', 'checkAnswer');
+
+  Route::get('/update-password', 'updatePassword')->middleware([OnlyGuestMiddleware::class]);;
+  Route::post('/update-password', 'doUpdatePassword');
 });
 
 Route::controller(AttendanceController::class)->group(function () {

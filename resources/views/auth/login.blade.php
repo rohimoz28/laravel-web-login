@@ -5,6 +5,7 @@
   <div class="col-md-5">
     <main class="form-signin m-auto">
       <h1 class="h3 mb-3 fw-normal text-center">Please Sign In</h1>
+
       @if(session('failed'))
       <div class="alert alert-danger">
         {{ session('failed') }}
@@ -40,7 +41,7 @@
         <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
       </form>
       <a href="/user/register" class="w-100 btn btn-lg btn-primary">Register</a>
-      <a href="check-email" class="w-100 btn btn-lg btn-danger mt-1">Forgot Password</a>
+      <a href="/check-email" class="w-100 btn btn-lg btn-danger mt-1">Forgot Password</a>
     </main>
   </div>
 </div>

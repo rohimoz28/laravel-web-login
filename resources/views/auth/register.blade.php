@@ -22,6 +22,15 @@
           @enderror
         </div>
         <div class="form-floating">
+          <input type="text" class="form-control mb-2 @error('username') is-invalid @enderror" name="username" id="floatingInput" placeholder="Username" value="{{ old('username') }}">
+          <label for="floatingInput">Username</label>
+          @error('username')
+          <div class="invalid-feedback text-start">
+            {{ $message }}
+          </div>
+          @enderror
+        </div>
+        <div class="form-floating">
           <input type="email" class="form-control mb-2 @error('email') is-invalid @enderror" name="email" id="floatingInput" placeholder="name@example.com" value="{{ old('email') }}">
           <label for="floatingInput">Email address</label>
           @error('email')
@@ -94,7 +103,7 @@
 
         <button class="w-100 btn btn-lg btn-success" type="submit">Submit</button>
       </form>
-      <a href="/auth/index" class="w-100 btn btn-lg btn-primary">Back to login</a>
+      <a href="/" class="w-100 btn btn-lg btn-primary">Back to login</a>
     </main>
   </div>
 </div>

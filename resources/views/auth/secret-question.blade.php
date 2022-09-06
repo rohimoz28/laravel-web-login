@@ -11,7 +11,7 @@
       </div>
       @endif
 
-      <form class="mb-1" method="POST" action="/auth/secret-question">
+      <form class="mb-1" method="POST" action="/secret-question">
         <!-- @method('post') -->
         @csrf
         <div class="form-floating">

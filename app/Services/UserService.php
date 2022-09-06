@@ -8,7 +8,9 @@ interface UserService
 {
   public function getUser(string $username): ?User;
 
-  public function register($data);
+  public function userQuestion(string $email): ?object;
+
+  // public function register($request); // not use
 
   public function updateProfile($data, $id): void;
 

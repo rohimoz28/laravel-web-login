@@ -24,54 +24,65 @@ class UserServiceImpl implements UserService
     return User::where('username', $username)->first();
   }
 
-  public function register($data)
+  public function userQuestion(string $email): ?object
   {
-    $validated = $this->request->validate([
-      'name' => 'required',
-      'email' => 'required|email|unique:users',
-      'password' => 'required|confirmed',
-      'question' => 'notIn:0',
-      'answer' => 'required',
-      'image' => 'image|file|max:2048',
-    ], [
-      'question.not_in' => 'You need to choose the :attribute'
-    ]);
+    $user = DB::table('users')
+      ->join('secret_questions', 'users.id', '=', 'secret_questions.user_id')
+      ->select('users.*', 'secret_questions.*')
+      ->where('users.email', '=', $email)
+      ->first();
 
-    if ($this->request->file('image')) {
-      $validated['image'] = $this->request->file('image')->store('profile-pictures');
-    } else {
-      $validated['image'] = 'default.jpeg';
-    }
-
-    if ($this->request->file('image')) {
-      $validated['image'] = $this->request->file('image')->store('profile-pictures');
-    } else {
-      $validated['image'] = 'default.jpeg';
-    }
-
-    //input
-    DB::beginTransaction();
-    try {
-      $user = User::create([
-        'name' => $validated['name'],
-        'email' => $validated['email'],
-        'password' => Hash::make($validated['password']),
-        'image' => $validated['image']
-      ]);
-
-      $last_inserted_ID = $user->id;
-
-      SecretQuestion::create([
-        'user_id' => $last_inserted_ID,
-        'question' => $validated['question'],
-        'answer' => $validated['answer']
-      ]);
-      DB::commit();
-    } catch (\Exception $exception) {
-      DB::rollBack();
-      return $exception->getMessage();
-    }
+    return $user;
   }
+
+  // public function register($data)
+  // {
+  //   $validated = $this->request->validate([
+  //     'name' => 'required',
+  //     'email' => 'required|email|unique:users',
+  //     'password' => 'required|confirmed',
+  //     'question' => 'notIn:0',
+  //     'answer' => 'required',
+  //     'image' => 'image|file|max:2048',
+  //   ], [
+  //     'question.not_in' => 'You need to choose the :attribute'
+  //   ]);
+  //
+  //   if ($this->request->file('image')) {
+  //     $validated['image'] = $this->request->file('image')->store('profile-pictures');
+  //   } else {
+  //     $validated['image'] = 'default.jpeg';
+  //   }
+  //
+  //   if ($this->request->file('image')) {
+  //     $validated['image'] = $this->request->file('image')->store('profile-pictures');
+  //   } else {
+  //     $validated['image'] = 'default.jpeg';
+  //   }
+  //
+  //   //input
+  //   DB::beginTransaction();
+  //   try {
+  //     $user = User::create([
+  //       'name' => $validated['name'],
+  //       'email' => $validated['email'],
+  //       'password' => Hash::make($validated['password']),
+  //       'image' => $validated['image']
+  //     ]);
+  //
+  //     $last_inserted_ID = $user->id;
+  //
+  //     SecretQuestion::create([
+  //       'user_id' => $last_inserted_ID,
+  //       'question' => $validated['question'],
+  //       'answer' => $validated['answer']
+  //     ]);
+  //     DB::commit();
+  //   } catch (\Exception $exception) {
+  //     DB::rollBack();
+  //     return $exception->getMessage();
+  //   }
+  // }
 
   public function updateProfile($data, $id): void
   {
