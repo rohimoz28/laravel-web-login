@@ -1,20 +1,7 @@
 
-    ## Change Route ## 
-    ## Auth Route ##
+    ## Refactoring User ## 
 
-1. Auth Route
-  - login => '/'
-  - logout => '/logout'
+1. Fixing Auth & User Route
+2. Login need to regenerate cookie
+3. Delete unused function in Auth & User Service
 
-2. User Route
-  - dashboard => '/user'
-
-    ## Change Middleware ## 
-1. OnlyMember Middleware | ($cookie) : $next ? back to '/'
-  - '/user'
-  - '/logout'
-
-2. OnlyGuest Middleware | ($cookie) : back to '/user' ? $next
-    - '/'
-    - '/register'
-    - '/forgot'
