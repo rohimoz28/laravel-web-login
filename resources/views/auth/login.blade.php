@@ -16,12 +16,12 @@
         {{ session('success') }}
       </div>
       @endif
-      <form class="mb-1" method="POST" action="/auth/index">
+      <form class="mb-1" method="POST" action="/">
         @csrf
         <div class="form-floating">
-          <input type="email" class="form-control mb-2 @error('email') is-invalid @enderror" name="email" id="floatingInput" placeholder="name@example.com" value="{{ old('email') }}">
-          <label for="floatingInput">Email address</label>
-          @error('email')
+          <input type="text" class="form-control mb-2 @error('username') is-invalid @enderror" name="username" id="floatingInput" placeholder="Username" value="{{ old('username') }}">
+          <label for="floatingInput">Username</label>
+          @error('username')
           <div class="invalid-feedback text-start">
             {{ $message }}
           </div>
@@ -40,7 +40,7 @@
         <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
       </form>
       <a href="/user/register" class="w-100 btn btn-lg btn-primary">Register</a>
-      <a href="/auth/check-email" class="w-100 btn btn-lg btn-danger mt-1">Forgot Password</a>
+      <a href="check-email" class="w-100 btn btn-lg btn-danger mt-1">Forgot Password</a>
     </main>
   </div>
 </div>

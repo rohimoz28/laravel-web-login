@@ -1,7 +1,20 @@
 
-    ## ADD FEATURE ## 
-## Feature Attendance ##
+    ## Change Route ## 
+    ## Auth Route ##
 
-1. Attendance list seeder | done
-2. Paginate according to present month
-3. Search data list according to month choosen
+1. Auth Route
+  - login => '/'
+  - logout => '/logout'
+
+2. User Route
+  - dashboard => '/user'
+
+    ## Change Middleware ## 
+1. OnlyMember Middleware | ($cookie) : $next ? back to '/'
+  - '/user'
+  - '/logout'
+
+2. OnlyGuest Middleware | ($cookie) : back to '/user' ? $next
+    - '/'
+    - '/register'
+    - '/forgot'

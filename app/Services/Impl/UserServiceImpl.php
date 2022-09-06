@@ -19,6 +19,11 @@ class UserServiceImpl implements UserService
     $this->request = $request;
   }
 
+  public function getUser(string $username): ?User
+  {
+    return User::where('username', $username)->first();
+  }
+
   public function register($data)
   {
     $validated = $this->request->validate([

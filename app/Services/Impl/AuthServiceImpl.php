@@ -21,14 +21,17 @@ class AuthServiceImpl implements AuthService
 
   public function login($data): bool
   {
-    $credentials = request(['email', 'password']);
+    $credentials = [
+      $data['username'], $data['password']
+    ];
 
     //check
-    if (Auth::attempt($credentials) == null) {
-      return false;
+    if (Auth::attempt($credentials)) {
+      // return true;
+      return "impl password benar";
     }
-
-    return true;
+    return "impl password salah";
+    // return false;
     // $session = $this->request->session()->regenerate();
     // return $session;
   }
@@ -52,13 +55,6 @@ class AuthServiceImpl implements AuthService
       ->first();
 
     return $user;
-  }
-
-  public function checkAnswer($email, $answer): bool
-  {
-    $user = $this->getUser($email);
-
-    return ($user->answer === $answer) ? true : false;
   }
 
   public function updatePassword(string $email, string $password): void

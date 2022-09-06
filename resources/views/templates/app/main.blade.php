@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Auth Laravel | Dashboard</title>
+  <title>Auth Laravel | {{ $title }}</title>
 
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="/css/dashboard.css">
@@ -25,7 +25,7 @@
     <!-- <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search"> -->
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
-        <form action="/auth/logout" method="POST">
+        <form action="/logout" method="POST">
           @csrf
           <!-- <a class="nav-link px-3" href="/auth/logout">Logout</a> -->
           <button type="submit" class="nav-link px-3 bg-dark border-0">Logout</button>

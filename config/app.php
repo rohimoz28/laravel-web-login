@@ -179,6 +179,7 @@ return [
     App\Providers\RouteServiceProvider::class,
     App\Providers\UserServiceProvider::class,
     App\Providers\AttendanceServiceProvider::class,
+    App\Providers\SecretQuestionProvider::class,
   ],
 
   'months' => [
