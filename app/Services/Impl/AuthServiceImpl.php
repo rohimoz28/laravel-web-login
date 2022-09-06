@@ -21,10 +21,7 @@ class AuthServiceImpl implements AuthService
 
   public function login($data): bool
   {
-    $credentials = $this->request->validate([
-      'email' => 'required|email',
-      'password' => 'required'
-    ]);
+    $credentials = request(['email', 'password']);
 
     //check
     if (Auth::attempt($credentials) == null) {

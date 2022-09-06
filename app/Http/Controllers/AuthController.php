@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthLoginRequest;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,7 @@ class AuthController extends Controller
     ]);
   }
 
-  public function doLogin(Request $request)
+  public function doLogin(AuthLoginRequest $request)
   {
     $user = $this->authService->getUserID($request->input('email'));
 
@@ -36,6 +37,16 @@ class AuthController extends Controller
 
     //failed
     return back()->with('failed', 'Username or password wrong!');
+  }
+
+  public function logout(Request $request)
+  {
+    Auth::logout();
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/');
   }
 
   public function checkEmail()
@@ -114,15 +125,5 @@ class AuthController extends Controller
     $request->session()->forget(['email', 'question', 'answer']);
 
     return redirect()->to('auth/index')->with('success', 'Password has been changed!');
-  }
-
-  public function logout(Request $request)
-  {
-    Auth::logout();
-
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-
-    return redirect('/');
   }
 }
