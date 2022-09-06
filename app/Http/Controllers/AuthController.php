@@ -3,19 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AuthLoginRequest;
-// use App\Services\AuthService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-  // private AuthService $authService;
   private UserService $userService;
 
   public function __construct(UserService $userService)
   {
-    // $this->authService = $authService;
     $this->userService = $userService;
   }
 
@@ -28,8 +25,8 @@ class AuthController extends Controller
 
   public function doLogin(AuthLoginRequest $request)
   {
-
     $credentials = $request->only('username', 'password');
+
     if (!Auth::attempt($credentials)) {
       // Login failed
       return back()->with('failed', 'Username or password wrong!');
@@ -37,6 +34,7 @@ class AuthController extends Controller
 
     // Login success
     $user = $this->userService->getUser($request->input('username'));
+
     $request->session()->put('id', $user->id);
 
     return redirect()->intended('user');
