@@ -55,10 +55,13 @@ class UserController extends Controller
    */
   public function store(UserRegisterRequest $request)
   {
-    if ($request->hasFile('image')) {
-      $request['image'] = $request->file('image')->store('profile-pictures');
+    if (!$request->hasFile('image')) {
+      $image = 'default.jpeg';
     } else {
-      $request['image'] = 'default.jpeg';
+      // $image = $request->image->store('profile-pictures');
+      $image = $request->file('image');
+      $image->storeAs('profile-pictures', $image->hashName());
+      $image = $image->hashName();
     }
 
     DB::beginTransaction();
@@ -68,7 +71,7 @@ class UserController extends Controller
         'username' => $request['username'],
         'email' => $request['email'],
         'password' => Hash::make($request['password']),
-        'image' => $request['image']
+        'image' => $image
       ]);
 
       $last_inserted_ID = $user->id;

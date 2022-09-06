@@ -18,9 +18,9 @@ class UserServiceImpl implements UserService
     $this->request = $request;
   }
 
-  public function getUser(string $username): ?User
+  public function getUser(string $email): ?User
   {
-    return User::where('username', $username)->first();
+    return User::where('email', $email)->first();
   }
 
   public function userQuestion(string $email): ?object
@@ -64,22 +64,22 @@ class UserServiceImpl implements UserService
   }
 
   // user profile update password
-  public function updatePassword($data, $id): void
-  {
-    $validated = $this->request->validate([
-      'currentPassword' => 'required|current_password:web',
-      'password' => 'required|confirmed',
-      'password_confirmation' => 'required'
-    ], [
-      'password.confirmed' => 'Password not match!',
-      'password.current_password' => 'Wrong Current Password'
-    ]);
-
-    //hash new password
-    $newPassword = Hash::make($validated['password']);
-
-    $user = User::find($id);
-    $user->password = $newPassword;
-    $user->save();
-  }
+  // public function updatePassword($data, $id): void
+  // {
+  //   $validated = $this->request->validate([
+  //     'currentPassword' => 'required|current_password:web',
+  //     'password' => 'required|confirmed',
+  //     'password_confirmation' => 'required'
+  //   ], [
+  //     'password.confirmed' => 'Password not match!',
+  //     'password.current_password' => 'Wrong Current Password'
+  //   ]);
+  //
+  //   //hash new password
+  //   $newPassword = Hash::make($validated['password']);
+  //
+  //   $user = User::find($id);
+  //   $user->password = $newPassword;
+  //   $user->save();
+  // }
 }

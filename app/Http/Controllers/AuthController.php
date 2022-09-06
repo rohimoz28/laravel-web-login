@@ -25,15 +25,15 @@ class AuthController extends Controller
 
   public function doLogin(AuthLoginRequest $request)
   {
-    $credentials = $request->only('username', 'password');
+    $credentials = $request->only('email', 'password');
 
     if (!Auth::attempt($credentials)) {
       // Login failed
-      return back()->with('failed', 'Username or password wrong!');
+      return back()->with('failed', 'Email or password wrong!');
     }
 
     // Login success
-    $user = $this->userService->getUser($request->input('username'));
+    $user = $this->userService->getUser($request->input('email'));
 
     $request->session()->put('id', $user->id);
 

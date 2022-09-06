@@ -20,9 +20,9 @@
       <form class="mb-1" method="POST" action="/">
         @csrf
         <div class="form-floating">
-          <input type="text" class="form-control mb-2 @error('username') is-invalid @enderror" name="username" id="floatingInput" placeholder="Username" value="{{ old('username') }}">
-          <label for="floatingInput">Username</label>
-          @error('username')
+          <input type="text" class="form-control mb-2 @error('email') is-invalid @enderror" name="email" id="floatingInput" placeholder="email@email.com" value="{{ old('email') }}">
+          <label for="floatingInput">Email</label>
+          @error('email')
           <div class="invalid-feedback text-start">
             {{ $message }}
           </div>
