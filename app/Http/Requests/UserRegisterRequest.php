@@ -27,6 +27,7 @@ class UserRegisterRequest extends FormRequest
       'name' => 'required',
       'email' => 'required|email|unique:users',
       'password' => 'required|confirmed',
+      'password_confirmation' => 'required',
       'question' => 'notIn:0',
       'answer' => 'required',
       'image' => 'image|file|max:2048',
