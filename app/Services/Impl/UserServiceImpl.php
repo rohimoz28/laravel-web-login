@@ -18,9 +18,12 @@ class UserServiceImpl implements UserService
     $this->request = $request;
   }
 
-  public function getUser(string $email): ?User
+  public function getUser(string $email): ?object
   {
-    return User::where('email', $email)->first();
+    // return User::where('email', $email)->first();
+    return DB::table('users')
+      ->where('email', $email)
+      ->first();
   }
 
   public function userQuestion(string $email): ?object

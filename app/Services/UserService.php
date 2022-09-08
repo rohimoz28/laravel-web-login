@@ -6,7 +6,7 @@ use App\Models\User;
 
 interface UserService
 {
-  public function getUser(string $email): ?User;
+  public function getUser(string $email): ?object;
 
   public function userQuestion(string $email): ?object;
 

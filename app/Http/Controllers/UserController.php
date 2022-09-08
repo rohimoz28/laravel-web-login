@@ -136,7 +136,8 @@ class UserController extends Controller
 
   public function updatePassword(Request $request)
   {
-    $user = $this->userService->userQuestion($request->cookie('X-COOKIE-FORGOTPASSWORD'));
+    // $user = $this->userService->userQuestion($request->cookie('X-COOKIE-FORGOTPASSWORD'));
+    $user = $this->userService->getUser($request->cookie('X-COOKIE-FORGOTPASSWORD'));
 
     return view('auth.update-password', [
       'title' => 'Update Password',
@@ -146,12 +147,13 @@ class UserController extends Controller
 
   public function doUpdatePassword(UserUpdatePasswordRequest $request)
   {
-    $user = $this->userService->userQuestion($request->cookie('X-COOKIE-FORGOTPASSWORD'));
+    // $user = $this->userService->userQuestion($request->cookie('X-COOKIE-FORGOTPASSWORD'));
+    $get_user = $this->userService->getUser($request->cookie('X-COOKIE-FORGOTPASSWORD'));
 
-    $user_update = User::find($user->id);
-    $user_update->password = Hash::make($request->input('password'));
+    $user = User::find($get_user->id);
+    $user->password = Hash::make($request->input('password'));
 
-    $user_update->save();
+    $user->save();
 
     return redirect('/')->withoutCookie('X-COOKIE-FORGOTPASSWORD')->with('success', 'Password has been updated!');
   }
