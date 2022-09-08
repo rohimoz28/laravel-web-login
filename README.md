@@ -2,7 +2,7 @@
 
 ## Project
 
-[![laravel-web-login.png](https://i.postimg.cc/W4cK6nVW/laravel-web-login.png)](https://postimg.cc/w1F09D7L)
+[![absensi.png](https://i.postimg.cc/xdzjXkQy/absensi.png)](https://postimg.cc/QBjZPdHH)
 
 Simple web login management using Laravel 9.
 
