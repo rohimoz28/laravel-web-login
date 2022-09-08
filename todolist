@@ -1,8 +1,7 @@
 
-                ## UPDATE FEATURE ## 
-## User Registration Add Select Option for Secret Question ##
+    ## Refactoring User ## 
 
-1. Update view registration | done
-2. Update Service registration | done
-3. Update Controller Registration | done
-4. Upload to heroku
+1. Fixing Auth & User Route
+2. Login need to regenerate cookie
+3. Delete unused function in Auth & User Service
+

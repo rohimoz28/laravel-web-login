@@ -69,7 +69,7 @@ return [
     |
     */
 
-  'timezone' => 'UTC',
+  'timezone' => 'Asia/Jakarta',
 
   /*
     |--------------------------------------------------------------------------
@@ -82,7 +82,7 @@ return [
     |
     */
 
-  'locale' => 'en',
+  'locale' => 'id',
 
   /*
     |--------------------------------------------------------------------------
@@ -108,7 +108,7 @@ return [
     |
     */
 
-  'faker_locale' => 'en_US',
+  'faker_locale' => 'id_ID',
 
   /*
     |--------------------------------------------------------------------------
@@ -178,6 +178,23 @@ return [
     App\Providers\EventServiceProvider::class,
     App\Providers\RouteServiceProvider::class,
     App\Providers\UserServiceProvider::class,
+    App\Providers\AttendanceServiceProvider::class,
+    App\Providers\SecretQuestionProvider::class,
+  ],
+
+  'months' => [
+    1 => 'January',
+    2 => 'February',
+    3 => 'Maret',
+    4 => 'April',
+    5 => 'May',
+    6 => 'June',
+    7 => 'July',
+    8 => 'August',
+    9 => 'September',
+    10 => 'October',
+    11 => 'November',
+    12 => 'December'
   ],
 
   /*

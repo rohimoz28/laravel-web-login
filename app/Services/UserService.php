@@ -1,8 +1,16 @@
 <?php
+
 namespace App\Services;
 
-interface UserService{
-  public function register($data);
-  public function updateProfile($data,$id): void;
-  public function updatePassword($data, $id): void;
+use App\Models\User;
+
+interface UserService
+{
+  public function getUser(string $email): ?object;
+
+  public function userQuestion(string $email): ?object;
+
+  public function updateProfile($data, $id): void; //deactivate
+
+  // public function updatePassword($data, $id): void; //deactivate
 }

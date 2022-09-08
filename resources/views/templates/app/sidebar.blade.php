@@ -10,21 +10,38 @@
     </ul>
 
     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-      <span>Settings</span>
+      <span>Attendance</span>
     </h6>
     <ul class="nav flex-column mb-2">
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('user/profile/*') ? 'active' : '' }}" href="/user/profile/{{ auth()->user()->id }}">
+        <a class="nav-link {{ Request::is('user/profile/*') ? 'active' : '' }}" href="/attendance/absence">
           <span data-feather="file-text" class="align-text-bottom"></span>
-          Edit Profile
+          Absence
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('user/password/*') ? 'active' : '' }}" href="/user/password/{{ auth()->user()->id }}">
+        <a class="nav-link {{ Request::is('user/password/*') ? 'active' : '' }}" href="/attendance/attendance-list">
           <span data-feather="file-text" class="align-text-bottom"></span>
-          Change Password
+          Attendance List
         </a>
       </li>
     </ul>
+    <!-- <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase"> -->
+    <!--   <span>Settings</span> -->
+    <!-- </h6> -->
+    <!-- <ul class="nav flex-column mb-2"> -->
+    <!--   <li class="nav-item"> -->
+    <!--     <a class="nav-link {{ Request::is('user/profile/*') ? 'active' : '' }}" href="/user/profile/{{ auth()->user()->id }}"> -->
+    <!--       <span data-feather="file-text" class="align-text-bottom"></span> -->
+    <!--       Edit Profile -->
+    <!--     </a> -->
+    <!--   </li> -->
+    <!-- <li class="nav-item"> -->
+    <!--   <a class="nav-link {{ Request::is('user/password/*') ? 'active' : '' }}" href="/user/password/{{ auth()->user()->id }}"> -->
+    <!--     <span data-feather="file-text" class="align-text-bottom"></span> -->
+    <!--     Change Password -->
+    <!--   </a> -->
+    <!-- </li> -->
+    <!-- </ul> -->
   </div>
 </nav>

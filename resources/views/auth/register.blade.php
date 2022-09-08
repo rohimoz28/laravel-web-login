@@ -94,7 +94,7 @@
 
         <button class="w-100 btn btn-lg btn-success" type="submit">Submit</button>
       </form>
-      <a href="/auth/index" class="w-100 btn btn-lg btn-primary">Back to login</a>
+      <a href="/" class="w-100 btn btn-lg btn-primary">Back to login</a>
     </main>
   </div>
 </div>

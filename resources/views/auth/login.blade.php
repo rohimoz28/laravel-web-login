@@ -5,6 +5,7 @@
   <div class="col-md-5">
     <main class="form-signin m-auto">
       <h1 class="h3 mb-3 fw-normal text-center">Please Sign In</h1>
+
       @if(session('failed'))
       <div class="alert alert-danger">
         {{ session('failed') }}
@@ -16,11 +17,11 @@
         {{ session('success') }}
       </div>
       @endif
-      <form class="mb-1" method="POST" action="/auth/index">
+      <form class="mb-1" method="POST" action="/">
         @csrf
         <div class="form-floating">
-          <input type="email" class="form-control mb-2 @error('email') is-invalid @enderror" name="email" id="floatingInput" placeholder="name@example.com" value="{{ old('email') }}">
-          <label for="floatingInput">Email address</label>
+          <input type="text" class="form-control mb-2 @error('email') is-invalid @enderror" name="email" id="floatingInput" placeholder="email@email.com" value="{{ old('email') }}">
+          <label for="floatingInput">Email</label>
           @error('email')
           <div class="invalid-feedback text-start">
             {{ $message }}
@@ -40,7 +41,7 @@
         <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
       </form>
       <a href="/user/register" class="w-100 btn btn-lg btn-primary">Register</a>
-      <a href="/auth/check-email" class="w-100 btn btn-lg btn-danger mt-1">Forgot Password</a>
+      <a href="/check-email" class="w-100 btn btn-lg btn-danger mt-1">Forgot Password</a>
     </main>
   </div>
 </div>
