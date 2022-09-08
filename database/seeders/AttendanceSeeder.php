@@ -30,6 +30,6 @@ class AttendanceSeeder extends Seeder
       'end' => 1493906522000
     ]);
 
-    Attendance::factory()->count(50)->create();
+    Attendance::factory()->count(200)->create();
   }
 }

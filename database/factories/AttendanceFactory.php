@@ -16,7 +16,7 @@ class AttendanceFactory extends Factory
    */
   public function definition()
   {
-    $events = $this->faker->dateTimeBetween('-70 days', '-5 days');
+    $events = $this->faker->dateTimeBetween('-240 days', '-1 days');
 
     return [
       'user_id' => $this->faker->numberBetween(1, 2),
